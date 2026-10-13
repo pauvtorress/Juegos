@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wii Game Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="logo" id="logo-home" title="Ir al menú">
+    <span class="logo-dots"><span></span><span></span></span>
+    <span class="logo-text">Wii <strong>Game Center</strong></span>
+  </div>
+  <div class="top-right">
+    <div class="mii-chip" id="mii-chip" data-goto="#/mii" tabindex="0" role="link" title="Cambiar de Mii">
+      <span class="mii-avatar mii-avatar-sm" id="mii-chip-avatar"></span>
+      <span id="mii-chip-name">Invitado</span>
+    </div>
+    <span class="pill-date" id="date-label">--</span>
+    <span class="pill-clock" id="clock">--:--</span>
+  </div>
+</header>
+
+<main>
+  <!-- ============ MII SELECT ============ -->
+  <section id="view-mii" class="view active">
+    <div class="hero">
+      <h1>¿Quién va a jugar?</h1>
+      <p>Elige tu Mii como en la Wii, ponle un nombre y ¡vamos a jugar!</p>
+    </div>
+    <div class="mii-layout">
+      <div class="mii-grid-card">
+        <h3>Toca tu personaje</h3>
+        <div class="mii-grid" id="mii-grid"></div>
+      </div>
+      <aside class="mii-preview-card">
+        <h3>Tu Mii</h3>
+        <div class="mii-preview-frame">
+          <span class="mii-avatar mii-avatar-xl" id="mii-preview-avatar"></span>
+        </div>
+        <p class="mii-preview-name" id="mii-preview-label">Sin elegir</p>
+        <label class="mii-label" for="mii-name">Nombre de tu personaje</label>
+        <input class="mii-input" id="mii-name" type="text" maxlength="12" placeholder="Ej. Paula" autocomplete="off" />
+        <button class="btn-action btn-mii" id="mii-confirm">¡Vamos a jugar! ▶</button>
+        <p class="hint">Se guarda en este navegador y te acompañará en el menú y los juegos.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ HOME ============ -->
+  <section id="view-home" class="view">
+    <div class="hero">
+      <h1>Elige tu canal para jugar</h1>
+      <p id="home-greeting">Cinco retos listos para jugar. Toca una tarjeta para abrir el juego.</p>
+    </div>
+    <div class="channels-grid">
+
+      <article class="channel channel-snake" data-goto="#/snake" tabindex="0" role="link" aria-label="Jugar Snake">
+        <div class="preview-window">
+          <div class="preview-titlebar"><i></i><i></i><i></i></div>
+          <canvas id="prev-snake" width="220" height="130"></canvas>
+        </div>
+        <div class="channel-body">
+          <span class="badge badge-snake">● Snake</span>
+          <h2>Snake</h2>
+          <p>Come, crece y no choques.</p>
+          <button class="btn-play btn-snake" data-goto="#/snake">Jugar ▶</button>
+        </div>
+      </article>
+
+      <article class="channel channel-tetris" data-goto="#/tetris" tabindex="0" role="link" aria-label="Jugar Tetris">
+        <div class="preview-window">
+          <div class="preview-titlebar"><i></i><i></i><i></i></div>
+          <canvas id="prev-tetris" width="220" height="130"></canvas>
+        </div>
+        <div class="channel-body">
+          <span class="badge badge-tetris">● Tetris</span>
+          <h2>Tetris</h2>
+          <p>Encaja piezas, limpia líneas.</p>
+          <button class="btn-play btn-tetris" data-goto="#/tetris">Jugar ▶</button>
+        </div>
+      </article>
+
+      <article class="channel channel-gato" data-goto="#/gato" tabindex="0" role="link" aria-label="Jugar Gato">
+        <div class="preview-window">
+          <div class="preview-titlebar"><i></i><i></i><i></i></div>
+          <div class="prev-gato" id="prev-gato">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="channel-body">
+          <span class="badge badge-gato">● Gato</span>
+          <h2>Gato</h2>
+          <p>Tic-Tac-Toe para 2 jugadores.</p>
+          <button class="btn-play btn-gato" data-goto="#/gato">Jugar ▶</button>
+        </div>
+      </article>
+
+      <article class="channel channel-pong" data-goto="#/pong" tabindex="0" role="link" aria-label="Jugar Pong">
+        <div class="preview-window">
+          <div class="preview-titlebar"><i></i><i></i><i></i></div>
+          <canvas id="prev-pong" width="220" height="130"></canvas>
+        </div>
+        <div class="channel-body">
+          <span class="badge badge-pong">● Pong</span>
+          <h2>Pong</h2>
+          <p>Rebota y marca 5 puntos.</p>
+          <button class="btn-play btn-pong" data-goto="#/pong">Jugar ▶</button>
+        </div>
+      </article>
+
+      <article class="channel channel-tiempo" data-goto="#/tiempo" tabindex="0" role="link" aria-label="Jugar Desafío de Tiempo">
+        <div class="preview-window">
+          <div class="preview-titlebar"><i></i><i></i><i></i></div>
+          <canvas id="prev-tiempo" width="220" height="130"></canvas>
+        </div>
+        <div class="channel-body">
+          <span class="badge badge-tiempo">● Tiempo</span>
+          <h2>Desafío de Tiempo</h2>
+          <p>Cuenta en tu cabeza y detén el crono.</p>
+          <button class="btn-play btn-tiempo" data-goto="#/tiempo">Jugar ▶</button>
+        </div>
+      </article>
+
+    </div>
+    <p class="hint">💡 Consejo: también puedes navegar con el teclado (Tab + Enter).</p>
+  </section>
+
+  <!-- ============ SNAKE ============ -->
+  <section id="view-snake" class="view">
+    <div class="game-header">
+      <button class="btn-back" data-goto="#/">← Menú Wii</button>
+      <h2><span class="dot dot-snake"></span> Snake</h2>
+      <span class="score-pill">Puntos: <strong id="snake-score">0</strong></span>
+    </div>
+    <div class="game-layout">
+      <div class="game-stage">
+        <canvas id="snake-canvas" width="400" height="400"></canvas>
+        <div class="overlay" id="snake-overlay"><span id="snake-overlay-text">Pulsa Iniciar</span></div>
+      </div>
+      <aside class="game-side">
+        <div class="playing-as"><span class="mii-avatar mii-avatar-xs playing-as-avatar"></span><span>Jugando como <strong class="playing-as-name">Invitado</strong></span> <button class="linklike" data-goto="#/mii">cambiar</button></div>
+        <h3>Cómo jugar</h3>
+        <p>Controla la serpiente con <kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> o WASD. En móvil usa el D-pad o desliza sobre el tablero. Come las manzanas 🍎 para crecer. Evita paredes y tu propio cuerpo.</p>
+        <div class="row">
+          <button class="btn-action btn-snake" id="snake-start">Iniciar / Reiniciar</button>
+        </div>
+        <div class="dpad" id="snake-dpad">
+          <button data-dir="up">▲</button>
+          <div><button data-dir="left">◀</button><button data-dir="down">▼</button><button data-dir="right">▶</button></div>
+        </div>
+        <p class="best">Récord: <strong id="snake-best">0</strong></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ TETRIS ============ -->
+  <section id="view-tetris" class="view">
+    <div class="game-header">
+      <button class="btn-back" data-goto="#/">← Menú Wii</button>
+      <h2><span class="dot dot-tetris"></span> Tetris</h2>
+      <span class="score-pill">Puntos: <strong id="tetris-score">0</strong> · Líneas: <strong id="tetris-lines">0</strong> · Nivel: <strong id="tetris-level">1</strong></span>
+    </div>
+    <div class="game-layout">
+      <div class="game-stage game-stage-tetris">
+        <canvas id="tetris-canvas" width="300" height="600"></canvas>
+        <div class="tetris-side-mini">
+          <p>Siguiente</p>
+          <canvas id="tetris-next" width="120" height="120"></canvas>
+          <div class="overlay" id="tetris-overlay"><span id="tetris-overlay-text">Pulsa Iniciar</span></div>
+        </div>
+      </div>
+      <aside class="game-side">
+        <div class="playing-as"><span class="mii-avatar mii-avatar-xs playing-as-avatar"></span><span>Jugando como <strong class="playing-as-name">Invitado</strong></span> <button class="linklike" data-goto="#/mii">cambiar</button></div>
+        <h3>Cómo jugar</h3>
+        <p><kbd>←</kbd><kbd>→</kbd> mover · <kbd>↓</kbd> bajar · <kbd>↑</kbd>/<kbd>X</kbd> rotar · <kbd>Espacio</kbd> caída instantánea. Completa líneas para sumar puntos.</p>
+        <div class="row">
+          <button class="btn-action btn-tetris" id="tetris-start">Iniciar / Reiniciar</button>
+          <button class="btn-action btn-ghost" id="tetris-pause">Pausa</button>
+        </div>
+        <div class="tbtns">
+          <button id="t-left">◀</button>
+          <button id="t-rotate">↻</button>
+          <button id="t-right">▶</button>
+          <button id="t-down">▼</button>
+          <button id="t-drop">⤓</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ GATO ============ -->
+  <section id="view-gato" class="view">
+    <div class="game-header">
+      <button class="btn-back" data-goto="#/">← Menú Wii</button>
+      <h2><span class="dot dot-gato"></span> Gato · Tic-Tac-Toe</h2>
+      <span class="score-pill">X: <strong id="gato-x">0</strong> · O: <strong id="gato-o">0</strong> · Empates: <strong id="gato-t">0</strong></span>
+    </div>
+    <div class="game-layout">
+      <div class="game-stage">
+        <p class="turn" id="gato-turn">Turno: X</p>
+        <div class="gato-board" id="gato-board">
+          <button></button><button></button><button></button><button></button><button></button><button></button><button></button><button></button><button></button>
+        </div>
+        <p class="turn" id="gato-msg"></p>
+      </div>
+      <aside class="game-side">
+        <div class="playing-as"><span class="mii-avatar mii-avatar-xs playing-as-avatar"></span><span>Jugando como <strong class="playing-as-name">Invitado</strong></span> <button class="linklike" data-goto="#/mii">cambiar</button></div>
+        <h3>Cómo jugar</h3>
+        <p>Dos jugadores se turnan en el mismo dispositivo tocando las casillas. Gana quien alinee 3 en fila, columna o diagonal.</p>
+        <div class="row">
+          <button class="btn-action btn-gato" id="gato-restart">Reiniciar partida</button>
+          <button class="btn-action btn-ghost" id="gato-reset-score">Poner marcadores a 0</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ PONG ============ -->
+  <section id="view-pong" class="view">
+    <div class="game-header">
+      <button class="btn-back" data-goto="#/">← Menú Wii</button>
+      <h2><span class="dot dot-pong"></span> Pong</h2>
+      <span class="score-pill"><strong id="pong-l">0</strong> : <strong id="pong-r">0</strong> · primero a 5</span>
+    </div>
+    <div class="game-layout">
+      <div class="game-stage game-stage-pong">
+        <canvas id="pong-canvas" width="640" height="400"></canvas>
+        <div class="overlay" id="pong-overlay"><span id="pong-overlay-text">Pulsa Iniciar</span></div>
+      </div>
+      <aside class="game-side">
+        <div class="playing-as"><span class="mii-avatar mii-avatar-xs playing-as-avatar"></span><span>Jugando como <strong class="playing-as-name">Invitado</strong></span> <button class="linklike" data-goto="#/mii">cambiar</button></div>
+        <h3>Cómo jugar</h3>
+        <p id="pong-help">Modo 1P: mueve tu paleta (izquierda) con <kbd>W</kbd>/<kbd>S</kbd>, mouse o dedo. La derecha es la CPU. Modo 2P: izquierda <kbd>W</kbd>/<kbd>S</kbd>, derecha <kbd>↑</kbd>/<kbd>↓</kbd>.</p>
+        <div class="row">
+          <select id="pong-mode" aria-label="Modo de juego">
+            <option value="cpu">1 Jugador vs CPU</option>
+            <option value="2p">2 Jugadores local</option>
+          </select>
+        </div>
+        <div class="row">
+          <button class="btn-action btn-pong" id="pong-start">Iniciar / Reiniciar</button>
+        </div>
+        <div class="tbtns">
+          <button id="p1-up">P1 ▲</button><button id="p1-down">P1 ▼</button>
+          <button id="p2-up">P2 ▲</button><button id="p2-down">P2 ▼</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ TIEMPO ============ -->
+  <section id="view-tiempo" class="view">
+    <div class="game-header">
+      <button class="btn-back" data-goto="#/">← Menú Wii</button>
+      <h2><span class="dot dot-tiempo"></span> Desafío de Tiempo</h2>
+      <span class="score-pill">Puntos: <strong id="tiempo-total">0</strong> · Intentos: <strong id="tiempo-tries">0</strong> · Mejor: <strong id="tiempo-best">—</strong></span>
+    </div>
+    <div class="game-layout">
+      <div class="game-stage">
+        <p class="tiempo-phase" id="tiempo-phase">Pulsa Iniciar para recibir tu objetivo secreto.</p>
+        <div class="tiempo-display" id="tiempo-display">⏱️</div>
+        <button class="tiempo-stop" id="tiempo-stop" disabled>¡DETENER!</button>
+        <div class="tiempo-result hidden" id="tiempo-result"></div>
+      </div>
+      <aside class="game-side">
+        <div class="playing-as"><span class="mii-avatar mii-avatar-xs playing-as-avatar"></span><span>Jugando como <strong class="playing-as-name">Invitado</strong></span> <button class="linklike" data-goto="#/mii">cambiar</button></div>
+        <h3>Cómo jugar</h3>
+        <p>1️⃣ Pulsa <strong>Iniciar</strong>: verás un tiempo objetivo (ej. 5 s) durante 3 segundos.<br>2️⃣ Cuando se oculte, cuenta mentalmente sin mirar ningún reloj.<br>3️⃣ Pulsa <strong>¡DETENER!</strong> o <kbd>Espacio</kbd> cuando creas que ya pasó ese tiempo.<br>Ganas hasta <strong>1000 puntos</strong> por intento según tu precisión.</p>
+        <div class="row">
+          <button class="btn-action btn-tiempo" id="tiempo-start">Iniciar desafío</button>
+        </div>
+        <p class="best">Récord de precisión: <strong id="tiempo-best-side">—</strong></p>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="bottombar">
+  <button class="wii-btn" data-goto="#/">● Menú Wii</button>
+  <span>Wii Game Center · 5 canales · Hecho con HTML/CSS/JS</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
