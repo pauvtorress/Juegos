@@ -1,4 +1,4 @@
-/* Wii Game Center — SPA + 5 juegos */
+/* Wii Game Center — SPA + 7 juegos */
 (function () {
   'use strict';
   const $ = (s) => document.querySelector(s);
@@ -15,7 +15,7 @@
   tickClock(); setInterval(tickClock, 10000);
 
   /* ---------- Navegación ---------- */
-  const views = ['mii', 'home', 'snake', 'tetris', 'gato', 'pong', 'tiempo'];
+  const views = ['mii', 'home', 'snake', 'tetris', 'gato', 'pong', 'tiempo', 'crossy', 'fruit'];
   function currentRoute() {
     const h = location.hash.replace('#/', '').replace('#', '');
     return views.includes(h) && h !== '' ? h : 'home';
@@ -45,6 +45,8 @@
 
   function stopAllGames() {
     Snake.stop(); Tetris.stop(); Pong.stop(); Tiempo.stopAll();
+    if (typeof CrossyGame !== 'undefined') CrossyGame.stopAll();
+    if (typeof FruitGame !== 'undefined') FruitGame.stopAll();
   }
 
   /* ================= MII (selección de personaje) ================= */
@@ -103,7 +105,7 @@
       $('#mii-chip-name').textContent = n;
       $$('.playing-as-name').forEach((el) => (el.textContent = n));
       $$('.playing-as-avatar').forEach((el) => { if (index !== null) paint(el, index); });
-      $('#home-greeting').textContent = '¡Hola, ' + n + '! 👋 Cinco retos listos para jugar. Toca una tarjeta para abrir el juego.';
+      $('#home-greeting').textContent = '¡Hola, ' + n + '! 👋 Siete retos listos para jugar. Toca una tarjeta para abrir el juego.';
     }
     // estado inicial
     if (name) $('#mii-name').value = name;
@@ -232,7 +234,11 @@
 
   function previewLoop(t) {
     if (previewsRunning) {
-      try { drawPrevSnake(t || 0); drawPrevTetris(t || 0); drawPrevPong(t || 0); drawPrevTiempo(t || 0); } catch (e) {}
+      try {
+        drawPrevSnake(t || 0); drawPrevTetris(t || 0); drawPrevPong(t || 0); drawPrevTiempo(t || 0);
+        if (typeof drawPrevCrossy === 'function') drawPrevCrossy(t || 0);
+        if (typeof drawPrevFruit === 'function') drawPrevFruit(t || 0);
+      } catch (e) {}
     }
     requestAnimationFrame(previewLoop);
   }
@@ -725,6 +731,15 @@
     }
     if (r === 'tiempo') {
       if (e.key === ' ' && !e.repeat) Tiempo.primary();
+    }
+    if (r === 'crossy' && typeof CrossyGame !== 'undefined') {
+      if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') CrossyGame.move(0, 1);
+      if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') CrossyGame.move(0, -1);
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') CrossyGame.move(-1, 0);
+      if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') CrossyGame.move(1, 0);
+    }
+    if (r === 'fruit' && typeof FruitGame !== 'undefined') {
+      if (e.key === ' ' && !e.repeat) FruitGame.primary();
     }
   });
 

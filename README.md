@@ -1,7 +1,7 @@
 # Wii Game Center
 
 Página web interactiva inspirada en la interfaz de la Nintendo Wii. Funciona como un
-menú principal de canales desde el que se accede a cinco juegos jugables, con
+menú principal de canales desde el que se accede a siete juegos jugables, con
 selección previa de personaje estilo Mii.
 
 ## Cómo ejecutarlo
@@ -29,8 +29,8 @@ Luego visita `http://localhost:8000`.
    La elección se guarda en `localStorage` y te acompaña en el menú y en los juegos.
 2. **Menú principal (`#​/`):** cinco tarjetas-canal con previsualizaciones animadas
    en vivo (no son imágenes estáticas).
-3. **Juegos (`#​/snake`, `#​/tetris`, `#​/gato`, `#​/pong`, `#​/tiempo`):** cada uno en
-   su propia vista, con instrucciones, puntuación, botón de inicio/reinicio y botón
+3. **Juegos (`#​/snake`, `#​/tetris`, `#​/gato`, `#​/pong`, `#​/tiempo`, `#​/crossy`,
+   `#​/fruit`):** cada uno en su propia vista, con instrucciones, puntuación, botón de inicio/reinicio y botón
    para volver al menú. La navegación usa hash, así que funcionan los botones
    atrás/adelante del navegador.
 
@@ -43,14 +43,19 @@ Luego visita `http://localhost:8000`.
 | Gato | Tic-Tac-Toe para 2 jugadores en el mismo dispositivo, con marcador X/O/empates. | Clic / toque en las casillas |
 | Pong | 1 jugador contra la CPU o 2 jugadores en local. Gana quien llegue a 5 puntos. | 1P: `W`/`S`, ratón o dedo. 2P: izquierda `W`/`S`, derecha `↑`/`↓` |
 | Desafío de Tiempo | Memoriza un objetivo (3–10 s), cuenta mentalmente sin reloj y detén el crono. Hasta 1000 pts por intento según precisión, con récord guardado. | Botón ¡DETENER! o `Espacio` |
+| Cruza la Carretera | Estilo Crossy Road con vista isométrica: cruza carreteras, ríos (sobre troncos) y vías de tren. Tu Mii es el protagonista. Cada paso adelante = 1 punto, con récord. | Flechas / WASD, D-pad, deslizar |
+| Fruit Ninja | Corta frutas con el ratón o el dedo, combos por tajos múltiples, 3 vidas y bombas según el modo (clásico/tranquilo). Récord y sonido opcional. | Arrastrar ratón / dedo, `Espacio` para iniciar |
 
 ## Estructura del proyecto
 
 ```text
 Juegos/
-├── index.html    # SPA: vistas de Mii, menú y los 5 juegos
+├── index.html    # SPA: vistas de Mii, menú y los 7 juegos
 ├── styles.css    # Estética Wii (tarjetas, sombras, responsive)
-├── app.js        # Router por hash, previews animadas y lógica de los juegos
+├── app.js        # Router por hash, previews animadas y lógica de Snake, Tetris,
+│                 # Gato, Pong y Desafío de Tiempo
+├── crossy.js     # Cruza la Carretera (lógica separada del juego)
+├── fruit.js      # Fruit Ninja (lógica separada del juego)
 ├── Monitos.jpg   # Hoja de 18 personajes (parrilla 6×3) usada como sprite
 └── README.md
 ```
@@ -64,10 +69,12 @@ Juegos/
   - `wgc-mii`: personaje y nombre elegidos.
   - `wgc-snake-best`: récord de Snake.
   - `wgc-tiempo-best`: mejor precisión del Desafío de Tiempo.
+  - `wgc-crossy-best`: récord de Cruza la Carretera.
+  - `wgc-fruit-best`: récord de Fruit Ninja.
 
 ## Diseño responsive
 
-El menú pasa de 5 columnas a 2 en tableta y 1 en móvil. Todos los juegos son
+El menú usa columnas automáticas según el ancho (baja a 2 en tableta y 1 en móvil). Todos los juegos son
 jugables con táctil (D-pad, botones y gestos) además de teclado.
 
 ## Licencia

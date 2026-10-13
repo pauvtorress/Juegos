@@ -54,7 +54,7 @@
   <section id="view-home" class="view">
     <div class="hero">
       <h1>Elige tu canal para jugar</h1>
-      <p id="home-greeting">Cinco retos listos para jugar. Toca una tarjeta para abrir el juego.</p>
+      <p id="home-greeting">Siete retos listos para jugar. Toca una tarjeta para abrir el juego.</p>
     </div>
     <div class="channels-grid">
 
@@ -122,6 +122,32 @@
           <h2>Desafío de Tiempo</h2>
           <p>Cuenta en tu cabeza y detén el crono.</p>
           <button class="btn-play btn-tiempo" data-goto="#/tiempo">Jugar ▶</button>
+        </div>
+      </article>
+
+      <article class="channel channel-crossy" data-goto="#/crossy" tabindex="0" role="link" aria-label="Jugar Cruza la Carretera">
+        <div class="preview-window">
+          <div class="preview-titlebar"><i></i><i></i><i></i></div>
+          <canvas id="prev-crossy" width="220" height="130"></canvas>
+        </div>
+        <div class="channel-body">
+          <span class="badge badge-crossy">● Crossy</span>
+          <h2>Cruza la Carretera</h2>
+          <p>Esquiva autos, ríos y trenes.</p>
+          <button class="btn-play btn-crossy" data-goto="#/crossy">Jugar ▶</button>
+        </div>
+      </article>
+
+      <article class="channel channel-fruit" data-goto="#/fruit" tabindex="0" role="link" aria-label="Jugar Fruit Ninja">
+        <div class="preview-window">
+          <div class="preview-titlebar"><i></i><i></i><i></i></div>
+          <canvas id="prev-fruit" width="220" height="130"></canvas>
+        </div>
+        <div class="channel-body">
+          <span class="badge badge-fruit">● Fruit</span>
+          <h2>Fruit Ninja</h2>
+          <p>Corta frutas, esquiva bombas.</p>
+          <button class="btn-play btn-fruit" data-goto="#/fruit">Jugar ▶</button>
         </div>
       </article>
 
@@ -277,13 +303,72 @@
       </aside>
     </div>
   </section>
+
+  <!-- ============ CROSSY ============ -->
+  <section id="view-crossy" class="view">
+    <div class="game-header">
+      <button class="btn-back" data-goto="#/">← Menú Wii</button>
+      <h2><span class="dot dot-crossy"></span> Cruza la Carretera</h2>
+      <span class="score-pill">Puntos: <strong id="crossy-score">0</strong> · Récord: <strong id="crossy-best">0</strong></span>
+    </div>
+    <div class="game-layout">
+      <div class="game-stage game-stage-crossy">
+        <canvas id="crossy-canvas" width="440" height="560"></canvas>
+        <div class="overlay" id="crossy-overlay"><span id="crossy-overlay-text">Pulsa Iniciar</span></div>
+      </div>
+      <aside class="game-side">
+        <div class="playing-as"><span class="mii-avatar mii-avatar-xs playing-as-avatar"></span><span>Jugando como <strong class="playing-as-name">Invitado</strong></span> <button class="linklike" data-goto="#/mii">cambiar</button></div>
+        <h3>Cómo jugar</h3>
+        <p>Tu Mii debe cruzar carreteras, ríos y vías de tren. Salta con <kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> o WASD. En móvil usa el D-pad o desliza sobre el tablero. Sube a los troncos para no ahogarte, esquiva los autos y espera a que pase el tren (luz roja). Cada paso adelante = 1 punto.</p>
+        <div class="row">
+          <button class="btn-action btn-crossy" id="crossy-start">Iniciar / Reiniciar</button>
+        </div>
+        <div class="dpad" id="crossy-dpad">
+          <button data-dx="0" data-dy="1">▲</button>
+          <div><button data-dx="-1" data-dy="0">◀</button><button data-dx="0" data-dy="-1">▼</button><button data-dx="1" data-dy="0">▶</button></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ FRUIT ============ -->
+  <section id="view-fruit" class="view">
+    <div class="game-header">
+      <button class="btn-back" data-goto="#/">← Menú Wii</button>
+      <h2><span class="dot dot-fruit"></span> Fruit Ninja</h2>
+      <span class="score-pill">Puntos: <strong id="fruit-score">0</strong> · Vidas: <strong id="fruit-lives">❤❤❤</strong> · Récord: <strong id="fruit-best">0</strong></span>
+    </div>
+    <div class="game-layout">
+      <div class="game-stage game-stage-fruit">
+        <canvas id="fruit-canvas" width="640" height="480"></canvas>
+        <div class="overlay" id="fruit-overlay"><span id="fruit-overlay-text">Pulsa Iniciar</span></div>
+      </div>
+      <aside class="game-side">
+        <div class="playing-as"><span class="mii-avatar mii-avatar-xs playing-as-avatar"></span><span>Jugando como <strong class="playing-as-name">Invitado</strong></span> <button class="linklike" data-goto="#/mii">cambiar</button></div>
+        <h3>Cómo jugar</h3>
+        <p>Corta las frutas deslizando el ratón o el dedo sobre ellas. Si se te escapa una fruta pierdes una vida (tienes 3). Corta varias de un tajo para llevarte <strong>combo extra</strong>. Cuidado con las 💣 bombas.</p>
+        <div class="row">
+          <select id="fruit-mode" aria-label="Modo de juego">
+            <option value="clasico">Clásico: bomba = fin de partida</option>
+            <option value="tranqui">Tranquilo: bomba = -1 vida</option>
+          </select>
+          <button class="btn-action btn-ghost" id="fruit-mute" title="Activar/silenciar sonido">🔊</button>
+        </div>
+        <div class="row">
+          <button class="btn-action btn-fruit" id="fruit-start">Iniciar / Reiniciar</button>
+        </div>
+      </aside>
+    </div>
+  </section>
 </main>
 
 <footer class="bottombar">
   <button class="wii-btn" data-goto="#/">● Menú Wii</button>
-  <span>Wii Game Center · 5 canales · Hecho con HTML/CSS/JS</span>
+  <span>Wii Game Center · 7 canales · Hecho con HTML/CSS/JS</span>
 </footer>
 
+<script src="crossy.js"></script>
+<script src="fruit.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
